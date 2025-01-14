@@ -1,0 +1,603 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+        int n = nums.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = i + 1; j < n; j++) {
+                if (nums[i] + nums[j] == target) {
+                    return {i, j};
+                }
+            }
+        }
+        return {}; // No solution found
+    }
+};
+
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        if (x < 0) {
+            return false;
+        }
+
+        long long reversed = 0;
+        long long temp = x;
+
+        while (temp != 0) {
+            int digit = temp % 10;
+            reversed = reversed * 10 + digit;
+            temp /= 10;
+        }
+
+        return (reversed == x);
+    }
+};
+
+class Solution {
+public:
+    int romanToInt(string s) {
+        vector<string>symbol={"M","CM","D","CD","C","XC","L","XL","X",
+        "IX","V","IV","I"};
+
+        vector<int>value={1000,900,500,400,100,90,50,40,10,9,5,4,1};
+
+        int symbolI=0;
+        int i=0;
+        int ans=0;
+        while(i<s.size()){
+            string sym=symbol[symbolI];
+            if(sym.size()==2){
+                if(i<s.size()-1 && sym[0]==s[i] && sym[1]==s[i+1]){
+                    ans+=value[symbolI];
+                    i+=2;
+                }
+                else{
+                    symbolI++;
+                }    
+            }else{
+                if(sym[0]==s[i]){
+                    ans+=value[symbolI];
+                    i++;
+                }else{
+                    symbolI++;
+                }
+            }
+
+        }
+        return ans;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        // int i=0;
+        // int j=0;
+        // int roman=0;
+        // while(i<s.length()){
+        //     int lengthsymbol=symbol[j].length();
+        //     string ans=s.substr(i,lengthsymbol);
+        //     if(ans==symbol[j]){
+        //         roman=roman+value[j];
+        //         i=i+lengthsymbol;
+        //     }
+        //     else{
+        //         j++;
+        //     }
+        // }
+        // return roman;
+    }
+};
+
+
+
+
+
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        if (strs.empty()) return "";
+        sort(strs.begin(), strs.end());
+        string first = strs[0], last = strs.back(), result = "";
+        for (int i = 0; i < first.size(); i++) {
+            if (i < last.size() && first[i] == last[i]) {
+                result += first[i];
+            } else {
+                break;
+            }
+        }
+        return result;
+    }
+};
+
+class Solution {
+public:
+    bool isValid(string s) {
+        stack<char> st; // create an empty stack to store opening brackets
+        for (char c : s) { // loop through each character in the string
+            if (c == '(' || c == '{' || c == '[') { // if the character is an opening bracket
+                st.push(c); // push it onto the stack
+            } else { // if the character is a closing bracket
+                if (st.empty() || // if the stack is empty or 
+                    (c == ')' && st.top() != '(') || // the closing bracket doesn't match the corresponding opening bracket at the top of the stack
+                    (c == '}' && st.top() != '{') ||
+                    (c == ']' && st.top() != '[')) {
+                    return false; // the string is not valid, so return false
+                }
+                st.pop(); // otherwise, pop the opening bracket from the stack
+            }
+        }
+        return st.empty(); // if the stack is empty, all opening brackets have been matched with their corresponding closing brackets,
+                           // so the string is valid, otherwise, there are unmatched opening brackets, so return false
+    }
+};
+
+struct ListNode {
+    int val;
+    ListNode* next;
+    ListNode(int x) : val(x), next(nullptr) {}
+};
+
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        ListNode* dummy = new ListNode(0);
+        ListNode* op = dummy;
+
+        while (list1 && list2) {
+            if (list1->val <= list2->val) {
+                op->next = list1;
+                list1 = list1->next;
+            } else {
+                op->next = list2;
+                list2 = list2->next;
+            }
+            op = op->next;
+        }
+        op->next = list1 ? list1 : list2;
+        return dummy->next;
+    }
+};
+
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int j = 1;
+        for(int i = 1; i < nums.size(); i++){
+            if(nums[i] != nums[i - 1]){
+                nums[j] = nums[i];
+                j++;
+            }
+        }
+        return j;
+    }
+};
+
+class Solution {
+public:
+    int removeElement(vector<int>& nums, int val) {
+        int index = 0;
+        for(int i = 0; i< nums.size(); i++){
+            if(nums[i] != val){
+                nums[index] = nums[i];
+                index++;
+            }
+        }
+        return index;
+    }
+};
+
+class Solution {
+public:
+    int strStr(std::string haystack, std::string needle) {
+        for (int i = 0; i <= haystack.length() - needle.length(); ++i) {
+            if (haystack.substr(i, needle.length()) == needle) {
+                return i;
+            }
+        }
+        return -1;
+    }
+};
+
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        int low=0;
+        int high=nums.size();
+        int mid;
+        if(target>nums[high-1]){
+            return high;
+        }
+        while(low<=high){
+              mid=(low+high)/2;
+            if(nums[mid]==target){  
+                return mid;
+            }
+          
+            if(target<nums[mid]){     
+            high=mid-1;    
+            }else{
+            low=mid+1;        
+            }
+          
+        }
+         return  low;   
+    }
+};
+
+class Solution {
+public:
+    int lengthOfLastWord(string s) {
+        int siz=s.size(),kount=0,flag=0;
+        for(int i=siz-1;i>=0;i--){
+            if(s[i]==' '&&flag)break;
+            if(s[i]!=' '){
+                flag=1;
+                kount++;
+            }
+        }
+        return kount;
+    }
+};
+
+class Solution {
+public:
+    vector<int> plusOne(vector<int>& digits) {
+        vector<int>v;
+        int sum=1;
+        for(int i=digits.size()-1;i>=0;i--){
+            sum+=digits[i];
+            v.push_back(sum%10);
+            sum/=10;
+        }
+        if(sum>0) v.push_back(sum);
+        reverse(v.begin(),v.end());
+        return v;
+    }
+};
+
+class Solution {
+public:
+    string addBinary(string a, string b) {
+        string s;
+        int sum=0;
+        int sz=max(a.size(),b.size());
+        int j=a.size()-1,k=b.size()-1;
+        for(int i=1;i<=sz;i++){
+            if(j<0){
+                sum+=b[k]-'0';
+                s+=(sum%2)+'0';
+                sum/=2;
+            }
+            else if(k<0){
+                sum+=a[j]-'0';
+                s+=(sum%2)+'0';
+                sum/=2;
+            }
+            else{
+                sum+=(a[j]-'0'+b[k]-'0');
+                s+=(sum%2)+'0';
+                sum/=2;
+            }
+            j--,k--;
+        }
+        if(sum>0) s+=(sum%2)+'0';
+        reverse(s.begin(),s.end());
+        return s;
+    }
+};
+
+class Solution {
+public:
+    int mySqrt(int x) {
+        if (x == 0)
+            return x;
+        int first = 1, last = x;
+        while (first <= last) {
+            int mid = first + (last - first) / 2;
+            // mid * mid == x gives runtime error
+            if (mid  == x / mid)
+                return mid;
+            else if (mid > x / mid) {
+                last = mid - 1;
+            }
+            else {
+                first = mid + 1;
+            }
+        }
+        return last;
+    }
+};
+
+class Solution {
+public:
+    int climbStairs(int n) {
+        if (n == 0 || n == 1) {
+            return 1;
+        }
+        return climbStairs(n-1) + climbStairs(n-2);
+    }
+};
+
+
+
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* deleteDuplicates(ListNode* head) {
+
+        if(head == NULL) return NULL;
+        if(head->next == NULL){
+            // single node case:
+            return head;
+        }
+
+        ListNode *current = head;
+
+        while(current != NULL ){
+            
+            if( (current->next != NULL) && (current->val == current->next->val) ){
+                // means duplicate milgya h delete krdenge current->next element ko
+                ListNode *todelete = current->next;
+                
+                current->next = current->next->next;
+                
+                todelete->next = NULL;
+                delete todelete;
+            }
+            else{
+                // unequal case : current ko aage badhate jayenge!
+                current = current->next;    // aage badhate jao               
+            }
+            
+        }
+        return head;        
+    }
+};
+
+class Solution {
+public:
+    void merge(vector<int>& nums1, int m, vector<int>& nums2, int n) {
+        for (int j = 0, i = m; j<n; j++){
+            nums1[i] = nums2[j];
+            i++;
+        }
+        sort(nums1.begin(),nums1.end());
+    }
+};
+
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    vector<int> inorderTraversal(TreeNode* root) {
+        vector<int> result;
+        helper(root, result);
+        return result;
+    }
+
+    void helper(TreeNode* root, vector<int>& result) {
+        if (root != nullptr) {
+            helper(root->left, result);
+            result.push_back(root->val);
+            helper(root->right, result);
+        }
+    }
+};
+
+class Solution {
+public:
+    bool isMirror(TreeNode* left, TreeNode* right) {
+    if (!left && !right) return true;
+    if (!left || !right) return false;
+    return (left->val == right->val) && isMirror(left->left, right->right) && isMirror(left->right, right->left);
+}
+
+bool isSymmetric(TreeNode* root) {
+    if (!root) return true;
+    return isMirror(root->left, root->right);
+}
+
+};
+
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+    int maxDepth(TreeNode* root) {
+        if(root == NULL) return 0;
+        return max(maxDepth(root->left)+1, maxDepth(root->right)+1);
+    }
+};
+
+
+class Solution {
+public:
+    TreeNode* sortedArrayToBST(vector<int>& nums) {
+        // Base condition...
+        if (nums.size() == 0)
+			return NULL;
+        // Call the function recursively...
+		return sortedArrayToBST(nums, 0, nums.size() - 1);
+    }
+    // Create another function which will convert any particular range of given nums array...
+    // & return its corresponding BST root node....
+	TreeNode* sortedArrayToBST(vector<int>& nums, int beg, int end) {
+        // If beg > end, return NULL, as we receive a wrong range...
+		if (beg > end)
+			return NULL;
+        // If beg == end, return a new node having value same as nums[beg]... 
+        if(beg == end)
+            return new TreeNode(nums[beg]);
+        // set the middle node...
+		int mid = (beg + end) / 2;
+        // Initialise root node with value same as nums[mid]
+		TreeNode* root = new TreeNode(nums[mid]);
+        // Assign left subtrees as the same function called on left subranges...
+		root->left = sortedArrayToBST(nums, beg, mid - 1);
+        // Assign right subtrees as the same function called on right subranges...
+		root->right = sortedArrayToBST(nums, mid + 1, end);
+        // Return the root node
+		return root;
+    }
+};
+
+class Solution {
+public:
+    bool hasPathSum(TreeNode* root, int targetSum) {
+        if (!root) {
+            return false;
+        }
+        
+        if (!root->left && !root->right) {
+            return targetSum == root->val;
+        }
+        
+        bool left_sum = hasPathSum(root->left, targetSum - root->val);
+        bool right_sum = hasPathSum(root->right, targetSum - root->val);
+        
+        return left_sum || right_sum;
+    }
+};
+
+class Solution {
+public:
+    int maxProfit(std::vector<int>& prices) {
+        int buy = prices[0];
+        int profit = 0;
+        for (int i = 1; i < prices.size(); i++) {
+            if (prices[i] < buy) {
+                buy = prices[i];
+            } else if (prices[i] - buy > profit) {
+                profit = prices[i] - buy;
+            }
+        }
+        return profit;
+    }
+};
+
+class Solution {
+public:
+    void traverse(TreeNode* root, vector<int>& res){
+        if (root){
+            traverse(root -> left, res);
+            traverse(root -> right, res);
+            res.push_back(root -> val);
+        }
+    }
+
+    vector<int> postorderTraversal(TreeNode* root) {
+        vector<int> res;
+        traverse(root, res);
+        return res;
+    }
+};
+
+class Solution {
+public:
+    bool isPalindrome(string s) {
+        int l = 0;
+        int e = s.size() - 1;
+
+        while (l <= e) {
+            // Skip non-alphanumeric characters
+            if (!isalnum(s[l])) {
+                l++;
+            } else if (!isalnum(s[e])) {
+                e--;
+            } else {
+                // Compare characters after converting to lowercase
+                char t1 = tolower(s[l]);
+                char t2 = tolower(s[e]);
+                if (t1 != t2) return false;
+                l++;
+                e--;
+            }
+        }
+        return true;
+    }
+};
+
+class Solution {
+public:
+    string convertToTitle(int columnNumber) {
+        //YZ = 25*(26^1) + 26*(26^0)
+        //XYZ = 24*(26^2) + 25*(26^1) + 26*(26^0)
+        string ans="";
+        while(columnNumber){
+            ans+=((columnNumber-1)%26+'A');
+            columnNumber=(columnNumber-1)/26;
+
+        }
+        reverse(ans.begin(),ans.end());
+        return ans;
+        
+       
+
+        
+    }
+};
+
+class Solution {
+public:
+    int lengthOfLongestSubstring(string s) {
+        int n = s.length();
+        int maxLength = 0;
+        unordered_set<char> charSet;
+        int left = 0;
+        
+        for (int right = 0; right < n; right++) {
+            if (charSet.count(s[right]) == 0) {
+                charSet.insert(s[right]);
+                maxLength = max(maxLength, right - left + 1);
+            } else {
+                while (charSet.count(s[right])) {
+                    charSet.erase(s[left]);
+                    left++;
+                }
+                charSet.insert(s[right]);
+            }
+        }
+        
+        return maxLength;
+    }
+};
